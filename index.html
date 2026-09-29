@@ -125,8 +125,8 @@
 <script>
 /* ===== נתונים שנמשכו מהלוקר, פר חודש (2026). ניתן לרענון. ===== */
 const DATA = {
-  updated: "12 באוגוסט 2026",
-  order: ["all","aug","jul","jun","may"],
+  updated: "29 בספטמבר 2026",
+  order: ["all","sep","aug","jul","jun","may"],
   periods: {
     all: { label:"כל התקופה (מאי–אוגוסט 2026)", note:"סיכום מצטבר של מאי עד אוגוסט 2026.",
       meta:[
@@ -150,7 +150,22 @@ const DATA = {
         {name:"Demand Gen אונו", cmp:"אונו", spend:1403.62, clicks:1542},
         {name:"קידום כל המתחמים (BOTP)", cmp:"כללי", spend:427.40, clicks:171},
       ] },
-    aug: { label:"אוגוסט 2026 (החודש)", note:"החודש הנוכחי, נכון ל-12 באוגוסט. מתעדכן עד סוף החודש.",
+    sep: { label:"ספטמבר 2026 (החודש)", note:"החודש הנוכחי, נכון ל-29 בספטמבר. מתעדכן עד סוף החודש.",
+      meta:[
+        {name:"בוסטר אונו - ca", cmp:"אונו", spend:2824.57, clicks:1134},
+        {name:"בוסטר אונו - קר", cmp:"אונו", spend:2763.30, clicks:1130},
+        {name:"רעננה LEADGEN מאי 2026", cmp:"רעננה", spend:1396.80, clicks:512},
+        {name:"פוסטים קרית אונו", cmp:"אונו", spend:427.79, clicks:618},
+        {name:"פוסטים BRAND", cmp:"כללי", spend:378.84, clicks:1031},
+        {name:"פוסט אינסטגרם, דיירים", cmp:"כללי", spend:146.84, clicks:191},
+        {name:"פוסט אינסטגרם, פקקים", cmp:"כללי", spend:59.88, clicks:142},
+        {name:"פוסטים קרית אונו (ארכיון)", cmp:"אונו", spend:38.19, clicks:17},
+      ],
+      google:[
+        {name:"חיפוש אונו", cmp:"אונו", spend:4771.06, clicks:234},
+        {name:"בוסטר רעננה קמפיין חיפוש", cmp:"רעננה", spend:1535.51, clicks:221},
+      ] },
+    aug: { label:"אוגוסט 2026 (חלקי, עד 12.8)", note:"נמשך חלקית, עד 12 באוגוסט. יושלם בסנכרון הבא.",
       meta:[
         {name:"בוסטר אונו - ca", cmp:"אונו", spend:1093.05, clicks:469},
         {name:"בוסטר אונו - קר", cmp:"אונו", spend:1072.29, clicks:481},
@@ -211,7 +226,23 @@ const CMP_CLASS = {"אונו":"ono","רעננה":"raa","כללי":"all"};
 const CMP_COLOR = {"אונו":"#ff6900","רעננה":"#00A8A0","כללי":"#c2c7d0"};
 let chart, trendMetaChart, trendGoogleChart;
 
+function computeAll(){
+  const monthKeys = DATA.order.filter(k=>k!=='all');
+  const merge = plat => {
+    const m = {};
+    monthKeys.forEach(k=>(DATA.periods[k][plat]||[]).forEach(x=>{
+      const key = x.cmp+'|'+x.name;
+      if(!m[key]) m[key] = {name:x.name, cmp:x.cmp, spend:0, clicks:0};
+      m[key].spend += x.spend; m[key].clicks += x.clicks;
+    }));
+    return Object.values(m).map(x=>({name:x.name, cmp:x.cmp, spend:Math.round(x.spend*100)/100, clicks:x.clicks})).sort((a,b)=>b.spend-a.spend);
+  };
+  DATA.periods.all.meta = merge('meta');
+  DATA.periods.all.google = merge('google');
+}
+
 function build(){
+  computeAll();
   const sel = document.getElementById('period');
   sel.innerHTML = DATA.order.map(k=>`<option value="${k}">${DATA.periods[k].label}</option>`).join('');
   document.getElementById('updated').textContent = DATA.updated;
