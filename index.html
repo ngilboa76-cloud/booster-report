@@ -128,8 +128,8 @@
 <script>
 /* ===== נתונים שנמשכו מהלוקר, פר חודש (2026). ניתן לרענון. ===== */
 const DATA = {
-  updated: "29 בספטמבר 2026",
-  order: ["all","sep","aug","jul","jun","may"],
+  updated: "6 באוקטובר 2026",
+  order: ["all","oct","sep","aug","jul","jun","may"],
   periods: {
     all: { label:"כל התקופה (החל ממאי 2026)", note:"סיכום מצטבר של כל התקופה, ממאי 2026 ועד היום.",
       meta:[
@@ -153,7 +153,19 @@ const DATA = {
         {name:"Demand Gen אונו", cmp:"אונו", spend:1403.62, clicks:1542},
         {name:"קידום כל המתחמים (BOTP)", cmp:"כללי", spend:427.40, clicks:171},
       ] },
-    sep: { label:"ספטמבר 2026 (החודש)", note:"החודש הנוכחי, נכון ל-29 בספטמבר. מתעדכן עד סוף החודש.",
+    oct: { label:"אוקטובר 2026 (החודש)", note:"החודש הנוכחי, נכון ל-6 באוקטובר. מתעדכן עד סוף החודש.",
+      meta:[
+        {name:"בוסטר אונו - קר", cmp:"אונו", spend:515.67, clicks:251},
+        {name:"בוסטר אונו - ca", cmp:"אונו", spend:497.79, clicks:204},
+        {name:"רעננה LEADGEN מאי 2026", cmp:"רעננה", spend:252.48, clicks:92},
+        {name:"פוסטים קרית אונו", cmp:"אונו", spend:210.79, clicks:407},
+        {name:"פוסטים BRAND", cmp:"כללי", spend:150.62, clicks:484},
+      ],
+      google:[
+        {name:"חיפוש אונו", cmp:"אונו", spend:876.72, clicks:46},
+        {name:"בוסטר רעננה קמפיין חיפוש", cmp:"רעננה", spend:97.30, clicks:60},
+      ] },
+    sep: { label:"ספטמבר 2026", note:"",
       meta:[
         {name:"בוסטר אונו - ca", cmp:"אונו", spend:2824.57, clicks:1134},
         {name:"בוסטר אונו - קר", cmp:"אונו", spend:2763.30, clicks:1130},
@@ -184,7 +196,7 @@ const DATA = {
         {name:"חיפוש אונו", cmp:"אונו", spend:5878.21, clicks:199},
         {name:"בוסטר רעננה קמפיין חיפוש", cmp:"רעננה", spend:2283.71, clicks:162},
       ] },
-    jul: { label:"יולי 2026 (חודש שעבר)", note:"",
+    jul: { label:"יולי 2026", note:"",
       meta:[
         {name:"בוסטר אונו - קר", cmp:"אונו", spend:2299.26, clicks:1108},
         {name:"טראפיק אונו", cmp:"אונו", spend:1170.99, clicks:1799},
